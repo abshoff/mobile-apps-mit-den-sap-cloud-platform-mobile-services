@@ -1,0 +1,6 @@
+openssl pkcs12 \
+    -export \
+    -in scc_principal_propagation_intermediate_ca.crt.pem \
+    -inkey scc_principal_propagation_intermediate_ca.key.pem \
+    -certfile scc_principal_propagation_root_ca.crt.pem \
+    -out scc_principal_propagation_intermediate_ca.p12

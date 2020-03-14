@@ -1,0 +1,3 @@
+<span class="c2g_email">
+  {{dataSets.[1].data.d.EmailAddress}}
+</span>

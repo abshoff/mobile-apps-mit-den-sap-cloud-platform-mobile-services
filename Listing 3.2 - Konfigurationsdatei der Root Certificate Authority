@@ -1,0 +1,49 @@
+[ ca ]
+default_ca = scc_principal_propagation_root_ca
+
+[ crl_ext ]
+issuerAltName=issuer:copy
+authorityKeyIdentifier=keyid:always
+
+[ scc_principal_propagation_root_ca ]
+new_certs_dir = ./
+unique_subject = no
+certificate = ./scc_principal_propagation_root_ca.crt.pem
+database = ./certindex
+private_key = ./scc_principal_propagation_root_ca.key.pem
+serial = ./certserial
+default_days = 9999
+default_md = sha1
+policy = scc_principal_propagation_root_ca_policy
+x509_extensions = scc_principal_propagation_root_ca_extensions
+crlnumber = ./crlnumber
+default_crl_days = 9999
+
+[ scc_principal_propagation_root_ca_policy ]
+commonName = optional
+stateOrProvinceName = optional
+countryName = optional
+emailAddress = optional
+organizationName = optional
+organizationalUnitName = optional
+
+[ scc_principal_propagation_root_ca_extensions ]
+basicConstraints = critical,CA:TRUE
+keyUsage = critical,any
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+keyUsage = digitalSignature,keyEncipherment,cRLSign,keyCertSign
+extendedKeyUsage = serverAuth
+
+[ req ]
+distinguished_name = req_distinguished_name
+
+[req_distinguished_name]
+
+[ v3_ca ]
+basicConstraints = critical,CA:TRUE,pathlen:0
+keyUsage = critical,any
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+keyUsage = digitalSignature,keyEncipherment,cRLSign,keyCertSign
+extendedKeyUsage = serverAuth

@@ -1,0 +1,1 @@
+cordova plugin add cordova-plugin-dialogs kapsel-plugin-ui5 kapsel-plugin-logon kapsel-plugin-odata --searchpath "<Pfad zum Plugin-Ordner des Kapsel-SDK>"

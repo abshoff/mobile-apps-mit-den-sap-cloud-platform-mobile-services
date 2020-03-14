@@ -1,0 +1,6 @@
+openssl req \
+    -new \
+    -sha256 \
+    -key scc_principal_propagation_intermediate_ca.key.pem \
+    -out scc_principal_propagation_intermediate_ca.csr.pem \
+    -subj '/CN=SCC Intermediate CA'

@@ -1,0 +1,36 @@
+<body>
+  <div class="card">
+    <h3>Lager</h3>
+    <table>
+      <tr>
+        <th class="ItemNumberColumn">Position</th>
+        <th class="DescriptionColumn">Bezeichnung</th>
+        <th class="QuantityOrderedColumn">Menge</th>
+        <th class="QuantityStockColumn">Bestand</th>
+      </tr>
+      {{#each dataSets.[0].data.d.Items.results}}
+      <tr>
+        <td class="ItemNumberColumn">{{ItemNumber}}</td>
+        <td class="DescriptionColumn">{{ProductDetails.ShortDescription}}</td>
+        <td class="QuantityOrderedColumn">{{Quantity}} {{QuantityUnit}}</td>
+        <td class="QuantityStockColumn">{{ProductDetails.StockDetails.Quantity}} {{ProductDetails.QuantityUnit}}</td>
+      </tr>
+      {{/each}}
+      </table>
+    <h3>Lieferanten</h3>
+    <table>
+      <tr>
+        <th class="ItemNumberColumn">Position</th>
+        <th class="DescriptionColumn">Bezeichnung</th>
+        <th class="SupplierColumn">Lieferant</th>
+      </tr>
+      {{#each dataSets.[0].data.d.Items.results}}
+      <tr>
+        <td class="ItemNumberColumn">{{ItemNumber}}</td>
+        <td class="DescriptionColumn">{{ProductDetails.ShortDescription}}</td>
+        <td class="SupplierColumn">{{ProductDetails.SupplierDetails.SupplierName}}</td>
+      </tr>
+      {{/each}}
+    </table>
+  </div>
+</body>

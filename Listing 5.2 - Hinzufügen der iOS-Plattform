@@ -1,0 +1,2 @@
+cd cordova-test-app
+cordova platform add ios@5.0.0

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Cordova-App</title>
+
+    <script type="text/javascript" src="cordova.js"></script>
+
+    <script
+        id="sap-ui-bootstrap"
+        src="resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_belize"
+        data-sap-ui-async="true"
+        data-sap-ui-resourceroots='{
+            "com.example.app": "./webapp"
+        }'>
+        </script>
+
+    <script>
+        const sApplicationID = "com.example.app";
+        const sMobileServicesHostname = "hcpms-s0123456789.hanatrial.ondemand.com";
+        const sODataServiceRoot = "https://" + sMobileServicesHostname + "/mobileservices/origin/hcpms/ESPM.svc/v2/";
+        const oDefiningRequests = {
+            "Suppliers": "/Suppliers"
+        };
+
+        function logon() {
+            return new Promise(function (fnResolve, fnReject) {
+                console.log("Starting logon process");
+                sap.Logon.init(fnResolve, fnReject, sApplicationID, {
+                    "serverHost": sMobileServicesHostname,
+                    "serverPort": "443",
+                    "https": "true",
+                    "refreshSAMLSessionOnResume": "skip",
+                    "auth": [{
+                        "type": "saml2.web.post",
+                        "config": {
+                            "saml2.web.post.authchallengeheader.name": "com.sap.cloud.security.login",
+                            "saml2.web.post.finish.endpoint.uri": "/SAMLAuthLauncher",
+                            "saml2.web.post.finish.endpoint.redirectparam": "finishEndpointParam"
+                        }
+                    }],
+                    "custom": {
+                        "disablePasscode": true
+                    }
+                });
+            });
+        }
+
+        function createAndOpenOfflineStore(oInitializationContext) {
+            return new Promise(function (fnResolve, fnReject) {
+                console.log("Creating and opening offline store");
+                const oOfflineStore = sap.OData.createOfflineStore({
+                    "name": sApplicationID + ".offlinestore",
+                    "host": oInitializationContext.registrationContext.serverHost,
+                    "port": oInitializationContext.registrationContext.serverPort,
+                    "https": oInitializationContext.registrationContext.https,
+                    "serviceRoot": sODataServiceRoot,
+                    "definingRequests": oDefiningRequests
+                });
+                oOfflineStore.open(fnResolve, fnReject, {
+                    "autoRefresh": true,
+                    "autoFlush": true
+                });
+            });
+        }
+
+        function startUpSAPUI5App() {
+            console.log("Starting up SAPUI5 application and applying Offline OData HTTP Client");
+            sap.ui.getCore().attachInit(function () {
+                sap.ui.require([
+                    "sap/m/Shell",
+                    "sap/ui/core/ComponentContainer",
+                    "sap/ui/thirdparty/datajs"
+                ], function (Shell, ComponentContainer, datajs) {
+                    new Shell({
+                        app: new ComponentContainer({
+                            name: "com.example.app",
+                            height: "100%"
+                        })
+                    }).placeAt("content");
+                    sap.OData.applyHttpClient();
+                });
+            });
+        }
+
+        document.addEventListener("deviceready", function () {
+            logon()
+                .then(createAndOpenOfflineStore)
+                .then(startUpSAPUI5App)
+                .catch(function (oError) {
+                    const sErrorMessage = "Caught an error: " + JSON.stringify(oError);
+                    console.err(sErrorMessage)
+                    alert(sErrorMessage);
+                });
+        }, false);
+
+    </script>
+</head>
+
+<body class="sapUiBody" id="content">
+</body>
+
+</html>

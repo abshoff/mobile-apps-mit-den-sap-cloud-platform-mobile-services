@@ -1,0 +1,28 @@
+.card {
+  height: 100vh;
+  padding: 10px;
+  color: white;
+  background-color: #0066f9;;
+  font-family: 'Helvetica';
+  font-size: 12pt;
+}
+h1, h2, h3 {
+  font-size: 28px;
+  font-weight: 300;
+  margin: 21px 0;
+}
+table {
+  width: 100%;
+}
+td {
+  padding: 3px;
+}
+td.PriceColumn, td.QuantityOrderedColumn, td.ItemNumberColumn, td.SummaryLabelColumn, td.QuantityStockColumn {
+  text-align: right;
+}
+tr.SummaryNetto td.PriceColumn {
+  border-top: 2px solid white;
+}
+tr.SummaryGrossAmount {
+  font-weight: bold;
+}

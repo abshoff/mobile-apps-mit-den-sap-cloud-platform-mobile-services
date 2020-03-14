@@ -1,0 +1,2 @@
+touch certindex
+echo 1000 > certserial

@@ -1,0 +1,10 @@
+openssl req \
+    -x509 \
+    -new \
+    -nodes \
+    -config ./scc_principal_propagation_root_ca.conf \
+    -extensions v3_ca \
+    -days 9999 \
+    -key scc_principal_propagation_root_ca.key.pem \
+    -out scc_principal_propagation_root_ca.crt.pem \
+    -subj '/CN=SCC Root CA'

@@ -1,0 +1,44 @@
+<body>
+  <div class="card">
+    <h1>Kundenauftrag vom {{formatDate dataSets.[0].data.d.CreatedAt}}</h1>
+    <h2>{{dataSets.[1].data.d.FirstName}} {{dataSets.[1].data.d.LastName}}</h2>
+    <p>
+     <span class="c2g_address">{{dataSets.[1].data.d.Street}} {{dataSets.[1].data.d.HouseNumber}}<br>
+      {{dataSets.[1].data.d.PostalCode}} {{dataSets.[1].data.d.City}}<br>
+      {{dataSets.[1].data.d.Country}}</span>
+    </p>
+    <p>
+     <span class="c2g_phoneNumber">{{dataSets.[1].data.d.PhoneNumber}}</span><br>
+     <span class="c2g_email">{{dataSets.[1].data.d.EmailAddress}}</span>
+    </p>
+    <h3>Auftragspositionen</h3>
+    <table>
+      <tr>
+        <th class="ItemNumberColumn">Position</th>
+        <th class="DescriptionColumn">Bezeichnung</th>
+        <th class="QuantityOrderedColumn">Menge</th>
+        <th class="PriceColumn">Preis</th>
+      </tr>
+     {{#each dataSets.[0].data.d.Items.results}}
+      <tr>
+        <td class="ItemNumberColumn">{{ItemNumber}}</td>
+        <td class="DescriptionColumn">{{ProductDetails.ShortDescription}}</td>
+        <td class="QuantityOrderedColumn">{{Quantity}} {{QuantityUnit}}</td>
+        <td class="PriceColumn">{{NetAmount}} {{CurrencyCode}}</td>
+      </tr>
+      {{/each}}
+      <tr class="SummaryNetto">
+        <td class="SummaryLabelColumn" colspan="3">Zwischensumme (netto):</td>
+        <td class="PriceColumn">{{dataSets.[0].data.d.NetAmount}} {{dataSets.[0].data.d.CurrencyCode}}</td>
+      </tr>
+      <tr class="SummaryTax">
+        <td class="SummaryLabelColumn" colspan="3">Umsatzsteuer:</td>
+        <td class="PriceColumn">{{dataSets.[0].data.d.TaxAmount}} {{dataSets.[0].data.d.CurrencyCode}}</td>
+      </tr>
+      <tr class="SummaryGrossAmount">
+        <td class="SummaryLabelColumn" colspan="3">Gesamtbetrag:</td>
+        <td class="PriceColumn">{{dataSets.[0].data.d.GrossAmount}} {{dataSets.[0].data.d.CurrencyCode}}</td>
+      </tr>
+    </table>
+  </div>
+</body>

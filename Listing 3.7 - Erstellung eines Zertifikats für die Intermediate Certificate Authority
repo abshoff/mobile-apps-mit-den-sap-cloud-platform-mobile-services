@@ -1,0 +1,6 @@
+openssl ca \
+    -batch \
+    -notext \
+    -config ./scc_principal_propagation_root_ca.conf \
+    -in scc_principal_propagation_intermediate_ca.csr.pem \
+    -out scc_principal_propagation_intermediate_ca.crt.pem

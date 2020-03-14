@@ -1,0 +1,3 @@
+openssl genrsa \
+    -out scc_principal_propagation_intermediate_ca.key.pem \
+    4096

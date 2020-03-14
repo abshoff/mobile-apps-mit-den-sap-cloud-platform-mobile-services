@@ -1,0 +1,5 @@
+curl \
+    --cacert ./scc_principal_propagation_intermediate_ca.crt.pem \
+    --key S0123456789.key.pem \
+    --cert S0123456789.crt.pem \
+    https://<hostname>:<port>/sap/bc/ping

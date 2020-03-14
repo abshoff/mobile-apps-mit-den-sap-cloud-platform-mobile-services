@@ -1,0 +1,8 @@
+openssl x509 \
+    -req \
+    -days 1 \
+    -in S0123456789.csr.pem \
+    -CA scc_principal_propagation_intermediate_ca.crt.pem \
+    -CAkey scc_principal_propagation_intermediate_ca.key.pem \
+    -set_serial 1001 \
+    -out S0123456789.crt.pem
